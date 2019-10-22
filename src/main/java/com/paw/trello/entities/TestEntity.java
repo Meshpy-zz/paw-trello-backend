@@ -8,10 +8,10 @@ public class TestEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "TEST_ID")
+    @Column(name = "test_id")
     private Long testId;
 
-    @Column(name = "TEST_PROPERTY")
+    @Column(name = "test_property")
     private String testProperty;
 
     public Long getTestId() {
