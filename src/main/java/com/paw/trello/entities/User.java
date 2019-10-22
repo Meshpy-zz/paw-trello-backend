@@ -11,7 +11,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    @NotNull
     private Long userId;
 
     @Column(name = "user_name")
@@ -75,6 +74,27 @@ public class User {
 
     public void setAuditMd(Date auditMd) {
         this.auditMd = auditMd;
+    }
+
+    @Override
+    public String toString() {
+        return "User{"
+               + "userId="
+               + userId
+               + ", username='"
+               + username
+               + '\''
+               + ", email='"
+               + email
+               + '\''
+               + ", password='"
+               + password
+               + '\''
+               + ", auditCd="
+               + auditCd
+               + ", auditMd="
+               + auditMd
+               + '}';
     }
 
 }

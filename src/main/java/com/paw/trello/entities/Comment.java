@@ -11,7 +11,6 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
-    @NotNull
     private Long commentId;
 
     @Column(name = "comment_creator_id")

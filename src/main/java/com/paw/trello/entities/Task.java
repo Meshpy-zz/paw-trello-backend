@@ -11,7 +11,6 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "task_id")
-    @NotNull
     private Long taskId;
 
     @Column(name = "task_panel_id")
@@ -110,6 +109,34 @@ public class Task {
 
     public void setAuditMd(Date auditMd) {
         this.auditMd = auditMd;
+    }
+
+    @Override
+    public String toString() {
+        return "Task{"
+               + "taskId="
+               + taskId
+               + ", panelId="
+               + panelId
+               + ", creatorId="
+               + creatorId
+               + ", name='"
+               + name
+               + '\''
+               + ", description='"
+               + description
+               + '\''
+               + ", members='"
+               + members
+               + '\''
+               + ", category='"
+               + category
+               + '\''
+               + ", auditCd="
+               + auditCd
+               + ", auditMd="
+               + auditMd
+               + '}';
     }
 
 }

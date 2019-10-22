@@ -10,7 +10,6 @@ public class Panel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     private Long panelId;
 
     @Column(name = "panel_board_id")
