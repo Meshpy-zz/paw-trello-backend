@@ -39,7 +39,7 @@ body:
 }
 ```
 
-# Stack technologiczny aplikacji
+# Stack technologiczny i narzędzia użyte do stworzenia aplikacji
 * Java 8
 * MySQL 
 * EJB 3.1
@@ -49,3 +49,5 @@ body:
 * JTA
 * JPA
 * Junit/Mockito
+* Travis CI
+* Trello
