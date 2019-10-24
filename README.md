@@ -2,7 +2,7 @@
 
 > Przed próbą wykonania poniższych kroków, należy pobrać cały serwer aplikacyjny
 > z odpowiednią konfiguracją z podanego linku: 
-> http:/eloelotubędzielink
+> https://www45.zippyshare.com/v/1MQ38EyB/file.html
 
 Wykonaj poniższe kroki w celu konfiguracji aplikacji:
 * sklonuj repozytorium na swój komputer
