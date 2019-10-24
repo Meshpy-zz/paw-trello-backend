@@ -1,5 +1,6 @@
 package com.paw.trello.services.auth;
 
+import com.paw.trello.dtos.LoginUserDto;
 import com.paw.trello.dtos.RegisterUserDto;
 import com.paw.trello.dtos.ResponseMessage;
 import com.paw.trello.entities.User;
@@ -68,6 +69,24 @@ public class AuthorizationService {
         }
 
         return false;
+    }
+
+    public ResponseMessage loginUser(LoginUserDto loginUserDto) {
+        try {
+            User user = (User) entityManager
+                    .createQuery("SELECT u FROM User u WHERE u.username LIKE :username AND u.password LIKE :password")
+                    .setParameter("username", loginUserDto.getUsername())
+                    .setParameter("password", loginUserDto.getPassword());
+        }
+        catch (NoResultException e) {
+            return ResponseMessage.builder()
+                                  .message("Nie znaleziono użytkownika o nazwie: " + loginUserDto.getUsername())
+                                  .build();
+        }
+
+        return ResponseMessage.builder()
+                              .message("Pomyślnie zalogowano użytkownika o nazwie: " + loginUserDto.getUsername())
+                              .build();
     }
 
 }
