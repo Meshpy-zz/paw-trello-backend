@@ -1,6 +1,6 @@
 package com.paw.trello.services.auth;
 
-import com.paw.trello.dtos.RegisterUserDto;
+import com.paw.trello.dtos.auth.RegisterUserDto;
 import com.paw.trello.dtos.ResponseMessage;
 import com.paw.trello.entities.User;
 

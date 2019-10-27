@@ -1,4 +1,4 @@
-package com.paw.trello.dtos;
+package com.paw.trello.dtos.auth;
 
 import lombok.Getter;
 import lombok.Setter;
