@@ -77,4 +77,24 @@ public class Board {
         this.auditMd = auditMd;
     }
 
+    @Override '
+    public String toString() {
+        return "Board{"
+               + "boardId="
+               + boardId
+               + ", creatorId="
+               + creatorId
+               + ", name='"
+               + name
+               + '\''
+               + ", allowedUsers='"
+               + allowedUsers
+               + '\''
+               + ", auditCd="
+               + auditCd
+               + ", auditMd="
+               + auditMd
+               + '}';
+    }
+
 }
