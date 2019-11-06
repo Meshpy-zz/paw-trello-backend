@@ -77,7 +77,7 @@ public class Board {
         this.auditMd = auditMd;
     }
 
-    @Override '
+    @Override
     public String toString() {
         return "Board{"
                + "boardId="
