@@ -10,6 +10,7 @@ public class List {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "list_id")
     private Long listId;
 
     @Column(name = "list_board_id")
