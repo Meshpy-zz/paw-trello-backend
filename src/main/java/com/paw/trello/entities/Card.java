@@ -13,9 +13,9 @@ public class Card {
     @Column(name = "card_id")
     private Long cardId;
 
-    @Column(name = "card_panel_id")
+    @Column(name = "card_list_id")
     @NotNull
-    private Long panelId;
+    private Long listId;
 
     @Column(name = "card_creator_id")
     @NotNull
@@ -47,12 +47,12 @@ public class Card {
         this.cardId = cardId;
     }
 
-    public Long getPanelId() {
-        return panelId;
+    public Long getListId() {
+        return listId;
     }
 
-    public void setPanelId(Long panelId) {
-        this.panelId = panelId;
+    public void setListId(Long listId) {
+        this.listId = listId;
     }
 
     public Long getCreatorId() {
@@ -115,8 +115,8 @@ public class Card {
         return "Card{"
                + "cardId="
                + cardId
-               + ", panelId="
-               + panelId
+               + ", listId="
+               + listId
                + ", creatorId="
                + creatorId
                + ", name='"

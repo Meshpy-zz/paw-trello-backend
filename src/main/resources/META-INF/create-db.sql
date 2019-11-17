@@ -47,7 +47,7 @@ CREATE TABLE `pawtrello`.`cards`
   `card_id` INT NOT NULL AUTO_INCREMENT,
   `card_name` VARCHAR(200) NULL,
   `card_description` VARCHAR(2000) NULL,
-  `card_panel_id` INT NOT NULL,
+  `card_list_id` INT NOT NULL,
   `card_creator_id` INT NOT NULL,
   `card_members` VARCHAR(2000) NULL,
   `card_category` VARCHAR(100) NULL,
