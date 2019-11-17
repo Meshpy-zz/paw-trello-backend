@@ -74,18 +74,18 @@ public class AuthorizationService {
     public ResponseMessage loginUser(LoginUserDto loginUserDto) {
         try {
             User user = (User) entityManager
-                    .createQuery("SELECT u FROM User u WHERE u.username LIKE :username AND u.password LIKE :password")
-                    .setParameter("username", loginUserDto.getUsername())
+                    .createQuery("SELECT u FROM User u WHERE u.email LIKE :email AND u.password LIKE :password")
+                    .setParameter("email", loginUserDto.getEmail())
                     .setParameter("password", loginUserDto.getPassword());
         }
         catch (NoResultException e) {
             return ResponseMessage.builder()
-                                  .message("Nie znaleziono użytkownika o nazwie: " + loginUserDto.getUsername())
+                                  .message("Nie znaleziono użytkownika o nazwie: " + loginUserDto.getEmail())
                                   .build();
         }
 
         return ResponseMessage.builder()
-                              .message("Pomyślnie zalogowano użytkownika o nazwie: " + loginUserDto.getUsername())
+                              .message("Pomyślnie zalogowano użytkownika o nazwie: " + loginUserDto.getEmail())
                               .build();
     }
 

@@ -5,46 +5,46 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-@Table(name = "tasks")
-public class Task {
+@Table(name = "cards")
+public class Card {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "task_id")
-    private Long taskId;
+    @Column(name = "card_id")
+    private Long cardId;
 
-    @Column(name = "task_panel_id")
+    @Column(name = "card_panel_id")
     @NotNull
     private Long panelId;
 
-    @Column(name = "task_creator_id")
+    @Column(name = "card_creator_id")
     @NotNull
     private Long creatorId;
 
-    @Column(name = "task_name")
+    @Column(name = "card_name")
     private String name;
 
-    @Column(name = "task_description")
+    @Column(name = "card_description")
     private String description;
 
-    @Column(name = "task_members")
+    @Column(name = "card_members")
     private String members;
 
-    @Column(name = "task_category")
+    @Column(name = "card_category")
     private String category;
 
-    @Column(name = "task_audit_cd")
+    @Column(name = "card_audit_cd")
     private Date auditCd;
 
-    @Column(name = "task_audit_md")
+    @Column(name = "card_audit_md")
     private Date auditMd;
 
-    public Long getTaskId() {
-        return taskId;
+    public Long getCardId() {
+        return cardId;
     }
 
-    public void setTaskId(Long taskId) {
-        this.taskId = taskId;
+    public void setCardId(Long cardId) {
+        this.cardId = cardId;
     }
 
     public Long getPanelId() {
@@ -111,11 +111,10 @@ public class Task {
         this.auditMd = auditMd;
     }
 
-    @Override
-    public String toString() {
-        return "Task{"
-               + "taskId="
-               + taskId
+    @Override public String toString() {
+        return "Card{"
+               + "cardId="
+               + cardId
                + ", panelId="
                + panelId
                + ", creatorId="

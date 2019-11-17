@@ -13,18 +13,18 @@ import javax.json.JsonObject;
 @ToString
 public class LoginUserDto {
 
-    private String username;
+    private String email;
 
     private String password;
 
     public LoginUserDto(JsonObject input) {
-        this.username = input.getString("username");
+        this.email = input.getString("email");
         this.password = input.getString("password");
     }
 
     public JsonObject toJson() {
         return Json.createObjectBuilder()
-                .add("username", this.username)
+                .add("username", this.email)
                 .add("password", this.password)
                 .build();
     }

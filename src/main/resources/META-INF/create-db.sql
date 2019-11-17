@@ -30,30 +30,30 @@ CREATE TABLE `pawtrello`.`boards`
   PRIMARY KEY (`board_id`)
 );
 
--- Panels
-CREATE TABLE `pawtrello`.`panels`
+-- Lists
+CREATE TABLE `pawtrello`.`lists`
 (
-  `panel_id` INT NOT NULL AUTO_INCREMENT,
-  `panel_name` VARCHAR(100) NULL,
-  `panel_board_id` INT NOT NULL,
-  `panel_audit_cd` DATETIME NULL,
-  `panel_audit_md` DATETIME NULL,
-  PRIMARY KEY (`panel_id`)
+  `list_id` INT NOT NULL AUTO_INCREMENT,
+  `list_name` VARCHAR(100) NULL,
+  `list_board_id` INT NOT NULL,
+  `list_audit_cd` DATETIME NULL,
+  `list_audit_md` DATETIME NULL,
+  PRIMARY KEY (`list_id`)
 );
 
--- Tasks
-CREATE TABLE `pawtrello`.`tasks`
+-- Cards
+CREATE TABLE `pawtrello`.`cards`
 (
-  `task_id` INT NOT NULL AUTO_INCREMENT,
-  `task_name` VARCHAR(200) NULL,
-  `task_description` VARCHAR(2000) NULL,
-  `task_panel_id` INT NOT NULL,
-  `task_creator_id` INT NOT NULL,
-  `task_members` VARCHAR(2000) NULL,
-  `task_category` VARCHAR(100) NULL,
-  `task_audit_cd` DATETIME NULL,
-  `task_audit_md` DATETIME NULL,
-  PRIMARY KEY (`task_id`)
+  `card_id` INT NOT NULL AUTO_INCREMENT,
+  `card_name` VARCHAR(200) NULL,
+  `card_description` VARCHAR(2000) NULL,
+  `card_panel_id` INT NOT NULL,
+  `card_creator_id` INT NOT NULL,
+  `card_members` VARCHAR(2000) NULL,
+  `card_category` VARCHAR(100) NULL,
+  `card_audit_cd` DATETIME NULL,
+  `card_audit_md` DATETIME NULL,
+  PRIMARY KEY (`card_id`)
 );
 
 -- Comments

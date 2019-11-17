@@ -5,32 +5,32 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
-@Table(name = "panels")
-public class Panel {
+@Table(name = "lists")
+public class List {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long panelId;
+    private Long listId;
 
-    @Column(name = "panel_board_id")
+    @Column(name = "list_board_id")
     @NotNull
     private Long boardId;
 
-    @Column(name = "panel_name")
+    @Column(name = "list_name")
     private String name;
 
-    @Column(name = "panel_audit_cd")
+    @Column(name = "list_audit_cd")
     private Date auditCd;
 
-    @Column(name = "panel_audit_md")
+    @Column(name = "list_audit_md")
     private Date auditMd;
 
-    public Long getPanelId() {
-        return panelId;
+    public Long getListId() {
+        return listId;
     }
 
-    public void setPanelId(Long panelId) {
-        this.panelId = panelId;
+    public void setListId(Long listId) {
+        this.listId = listId;
     }
 
     public Long getBoardId() {
