@@ -52,4 +52,15 @@ public class CardEndpoint {
                 .build();
     }
 
+    @Path("/{cardId}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteCardFromList(@PathParam("cardId") Long cardId) {
+        ResponseMessage responseMessage = cardService.deleteCardFromList(cardId);
+        return Response
+                .ok()
+                .entity(responseMessage.getMessage())
+                .build();
+    }
+
 }

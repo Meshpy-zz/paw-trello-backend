@@ -69,4 +69,16 @@ public class CardService {
                              .build();
     }
 
+    public ResponseMessage deleteCardFromList(Long cardId) {
+        Card card = (Card) entityManager.createQuery("SELECT c FROM Card c WHERE c.cardId = :cardId")
+                            .setParameter("cardId", cardId)
+                            .getSingleResult();
+
+        entityManager.remove(card);
+
+        return ResponseMessage.builder()
+                              .message("Pomyślnie usunięto kartę o id: " + cardId)
+                              .build();
+    }
+
 }
