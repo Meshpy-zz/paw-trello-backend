@@ -4,6 +4,7 @@ import com.paw.trello.dtos.ResponseMessage;
 import com.paw.trello.dtos.boards.BoardDto;
 import com.paw.trello.dtos.boards.CreateNewBoardDto;
 import com.paw.trello.dtos.boards.EditBoardNameDto;
+import com.paw.trello.security.JWTTokenNeeded;
 import com.paw.trello.services.boards.BoardService;
 
 import javax.inject.Inject;
@@ -33,6 +34,7 @@ public class BoardEndpoint {
     @Path("/all/{userId}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
+    @JWTTokenNeeded
     public Response getAllBoards(@PathParam("userId") Long userId) {
         List<BoardDto> boards = boardService.getAllBoards(userId);
         return Response

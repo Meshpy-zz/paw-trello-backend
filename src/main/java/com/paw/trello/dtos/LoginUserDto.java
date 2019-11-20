@@ -24,7 +24,7 @@ public class LoginUserDto {
 
     public JsonObject toJson() {
         return Json.createObjectBuilder()
-                .add("username", this.email)
+                .add("email", this.email)
                 .add("password", this.password)
                 .build();
     }

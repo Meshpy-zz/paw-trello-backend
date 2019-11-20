@@ -76,7 +76,8 @@ public class AuthorizationService {
             User user = (User) entityManager
                     .createQuery("SELECT u FROM User u WHERE u.email LIKE :email AND u.password LIKE :password")
                     .setParameter("email", loginUserDto.getEmail())
-                    .setParameter("password", loginUserDto.getPassword());
+                    .setParameter("password", loginUserDto.getPassword())
+                    .getSingleResult();
         }
         catch (NoResultException e) {
             return ResponseMessage.builder()
