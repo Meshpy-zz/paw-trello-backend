@@ -4,6 +4,7 @@ import com.paw.trello.dtos.ResponseMessage;
 import com.paw.trello.dtos.cards.CardDetailsDto;
 import com.paw.trello.dtos.cards.CardDto;
 import com.paw.trello.dtos.cards.CreateNewCardDto;
+import com.paw.trello.dtos.cards.EditCardDescriptionDto;
 import com.paw.trello.services.cards.CardService;
 
 import javax.inject.Inject;
@@ -57,6 +58,17 @@ public class CardEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteCardFromList(@PathParam("cardId") Long cardId) {
         ResponseMessage responseMessage = cardService.deleteCardFromList(cardId);
+        return Response
+                .ok()
+                .entity(responseMessage.getMessage())
+                .build();
+    }
+
+    @Path("/edit")
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response editCardDescription(JsonObject input) {
+        ResponseMessage responseMessage = cardService.editCardDescription(new EditCardDescriptionDto(input));
         return Response
                 .ok()
                 .entity(responseMessage.getMessage())

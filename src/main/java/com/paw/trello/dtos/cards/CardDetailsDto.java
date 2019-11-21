@@ -12,4 +12,5 @@ public class CardDetailsDto {
     private String title;
 
     private String description;
+
 }

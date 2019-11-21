@@ -4,6 +4,7 @@ import com.paw.trello.dtos.ResponseMessage;
 import com.paw.trello.dtos.cards.CardDetailsDto;
 import com.paw.trello.dtos.cards.CardDto;
 import com.paw.trello.dtos.cards.CreateNewCardDto;
+import com.paw.trello.dtos.cards.EditCardDescriptionDto;
 import com.paw.trello.entities.Card;
 
 import javax.ejb.Stateless;
@@ -78,6 +79,21 @@ public class CardService {
 
         return ResponseMessage.builder()
                               .message("Pomyślnie usunięto kartę o id: " + cardId)
+                              .build();
+    }
+
+    public ResponseMessage editCardDescription(EditCardDescriptionDto editCardDescriptionDto) {
+        Card card = (Card) entityManager.createQuery("SELECT c FROM Card c WHERE c.cardId = :cardId")
+                                        .setParameter("cardId", editCardDescriptionDto.getId())
+                                        .getSingleResult();
+
+        card.setDescription(editCardDescriptionDto.getDescription());
+        card.setName(editCardDescriptionDto.getTitle());
+
+        entityManager.merge(card);
+
+        return ResponseMessage.builder()
+                              .message("Pomyślnie zmodyfikowano opis/tytuł karty.")
                               .build();
     }
 
