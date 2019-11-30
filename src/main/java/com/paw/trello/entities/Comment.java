@@ -17,9 +17,8 @@ public class Comment {
     @NotNull
     private Long creatorId;
 
-    @Column(name = "comment_task_id")
-    @NotNull
-    private Long taskId;
+    @Column(name = "comment_card_id")
+    private Long cardId;
 
     @Column(name = "comment_content")
     private String content;
@@ -46,12 +45,12 @@ public class Comment {
         this.creatorId = creatorId;
     }
 
-    public Long getTaskId() {
-        return taskId;
+    public Long getCardId() {
+        return cardId;
     }
 
-    public void setTaskId(Long taskId) {
-        this.taskId = taskId;
+    public void setCardId(Long cardId) {
+        this.cardId = cardId;
     }
 
     public String getContent() {

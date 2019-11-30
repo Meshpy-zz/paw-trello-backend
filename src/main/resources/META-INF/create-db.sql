@@ -63,7 +63,7 @@ CREATE TABLE `pawtrello`.`comments`
   `comment_id` INT NOT NULL AUTO_INCREMENT,
   `comment_content` VARCHAR(2000) NULL,
   `comment_creator_id` INT NOT NULL,
-  `comment_task_id` INT NOT NULL,
+  `comment_card_id` INT NOT NULL,
   `comment_audit_cd` DATETIME NULL,
   `comment_audit_md` DATETIME NULL,
   PRIMARY KEY (`comment_id`)
