@@ -75,4 +75,15 @@ public class CardEndpoint {
                 .build();
     }
 
+    @Path("/archive-card/{cardId}")
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response archiveCard(@PathParam("cardId") Long cardId) {
+        ResponseMessage responseMessage = cardService.archiveCard(cardId);
+        return Response
+                .ok()
+                .entity(responseMessage.getMessage())
+                .build();
+    }
+
 }

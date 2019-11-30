@@ -97,4 +97,17 @@ public class CardService {
                               .build();
     }
 
+    public ResponseMessage archiveCard(Long cardId) {
+        Card card = (Card) entityManager.createQuery("SELECT c FROM Card c WHERE c.cardId = :cardId")
+                                        .setParameter("cardId", cardId)
+                                        .getSingleResult();
+
+        card.setArchieved(true);
+        entityManager.merge(card);
+
+        return ResponseMessage.builder()
+                .message("Pomyślnie zarchiwizowano kartę o nr id: " + cardId)
+                .build();
+    }
+
 }
