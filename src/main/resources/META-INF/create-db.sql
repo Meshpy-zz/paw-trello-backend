@@ -53,6 +53,7 @@ CREATE TABLE `pawtrello`.`cards`
   `card_category` VARCHAR(100) NULL,
   `card_audit_cd` DATETIME NULL,
   `card_audit_md` DATETIME NULL,
+  `card_is_archieved` BOOLEAN NULL,
   PRIMARY KEY (`card_id`)
 );
 

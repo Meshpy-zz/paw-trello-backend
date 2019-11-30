@@ -39,6 +39,9 @@ public class Card {
     @Column(name = "card_audit_md")
     private Date auditMd;
 
+    @Column(name = "card_is_archieved")
+    private boolean isArchieved;
+
     public Long getCardId() {
         return cardId;
     }
@@ -109,6 +112,14 @@ public class Card {
 
     public void setAuditMd(Date auditMd) {
         this.auditMd = auditMd;
+    }
+
+    public boolean isArchieved() {
+        return isArchieved;
+    }
+
+    public void setArchieved(boolean archieved) {
+        isArchieved = archieved;
     }
 
     @Override public String toString() {
