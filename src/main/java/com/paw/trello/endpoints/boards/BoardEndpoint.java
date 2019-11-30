@@ -62,4 +62,15 @@ public class BoardEndpoint {
                 .build();
     }
 
+    @Path("/{boardId}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteBoard(@PathParam("boardId") Long boardId) {
+        ResponseMessage responseMessage = boardService.deleteBoard(boardId);
+        return Response
+                .ok()
+                .entity(responseMessage.getMessage())
+                .build();
+    }
+
 }

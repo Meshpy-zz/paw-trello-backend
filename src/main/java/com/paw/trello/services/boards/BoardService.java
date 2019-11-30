@@ -5,6 +5,8 @@ import com.paw.trello.dtos.boards.BoardDto;
 import com.paw.trello.dtos.boards.CreateNewBoardDto;
 import com.paw.trello.dtos.boards.EditBoardNameDto;
 import com.paw.trello.entities.Board;
+import com.paw.trello.entities.Card;
+import com.paw.trello.entities.Comment;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -79,6 +81,46 @@ public class BoardService {
                        .boardId(board.getBoardId())
                        .name(board.getName())
                        .build();
+    }
+
+    public ResponseMessage deleteBoard(Long boardId) {
+        Board board = (Board) entityManager.createQuery("SELECT b FROM Board b WHERE b.boardId = :boardId")
+                                           .setParameter("boardId", boardId)
+                                           .getSingleResult();
+//        List<com.paw.trello.entities.List> lists = entityManager.createQuery("SELECT l FROM List l WHERE l.boardId = :boardId")
+//                .setParameter("boardId", boardId)
+//                .getResultList();
+//
+//        if (lists != null) {
+//            for (com.paw.trello.entities.List list : lists) {
+//                List<Card> allCardsFromSpecificList = entityManager.createQuery("SELECT c FROM Card c WHERE c.listId = :listId")
+//                                                                   .setParameter("listId", list.getListId())
+//                                                                   .getResultList();
+//
+//                if (allCardsFromSpecificList != null) {
+//                    for (Card card : allCardsFromSpecificList) {
+//                        List<Comment> comments = entityManager.createQuery("SELECT c FROM Comment c WHERE c.cardId = :cardId")
+//                                                              .setParameter("cardId", card.getCardId())
+//                                                              .getResultList();
+//                        if (comments != null) {
+//                            for (Comment comment : comments) {
+//                                entityManager.remove(comment);
+//                            }
+//                        }
+//
+//                        entityManager.remove(card);
+//                    }
+//                }
+//
+//                entityManager.remove(list);
+//            }
+//        }
+
+        entityManager.remove(board);
+
+        return ResponseMessage.builder()
+                .message("Pomyślnie usunięto tablicę o nr id " + boardId)
+                .build();
     }
 
 }
