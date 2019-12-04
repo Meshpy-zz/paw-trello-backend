@@ -3,6 +3,7 @@ package com.paw.trello.services.comments;
 import com.paw.trello.dtos.ResponseMessage;
 import com.paw.trello.dtos.comments.CommentDetailsDto;
 import com.paw.trello.dtos.comments.CreateNewCommentDto;
+import com.paw.trello.dtos.comments.EditCommentDto;
 import com.paw.trello.entities.Comment;
 
 import javax.ejb.Stateless;
@@ -47,4 +48,21 @@ public class CommentService {
 
         return commentDetailsDtos;
     }
+
+    public ResponseMessage editComment(EditCommentDto editCommentDto) {
+        Comment comment = (Comment) entityManager.createQuery("SELECT c FROM Comment c WHERE c.commentId = :commentId")
+                                                 .setParameter("commentId", editCommentDto.getCommentId())
+                                                 .getSingleResult();
+
+        comment.setContent(editCommentDto.getContent());
+        comment.setCardId((long) editCommentDto.getCardId());
+        comment.setCommentId((long) editCommentDto.getCommentId());
+
+        entityManager.merge(comment);
+
+        return ResponseMessage.builder()
+                              .message("Poprawnie zedytowano komentarz!")
+                              .build();
+    }
+
 }

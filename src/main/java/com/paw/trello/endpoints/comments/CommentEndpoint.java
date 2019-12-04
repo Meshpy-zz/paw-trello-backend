@@ -3,6 +3,7 @@ package com.paw.trello.endpoints.comments;
 import com.paw.trello.dtos.ResponseMessage;
 import com.paw.trello.dtos.comments.CommentDetailsDto;
 import com.paw.trello.dtos.comments.CreateNewCommentDto;
+import com.paw.trello.dtos.comments.EditCommentDto;
 import com.paw.trello.entities.Comment;
 import com.paw.trello.services.comments.CommentService;
 
@@ -38,6 +39,17 @@ public class CommentEndpoint {
         return Response
                 .ok()
                 .entity(commentDetailsDtos)
+                .build();
+    }
+
+    @Path("/edit")
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response editComment(JsonObject input) {
+        ResponseMessage responseMessage = commentService.editComment(new EditCommentDto(input));
+        return Response
+                .ok()
+                .entity(responseMessage.getMessage())
                 .build();
     }
 
