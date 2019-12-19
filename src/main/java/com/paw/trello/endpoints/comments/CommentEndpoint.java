@@ -34,11 +34,22 @@ public class CommentEndpoint {
     @Path("/all/{cardId}")
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getAllCommentsForSpecificCard(@PathParam("cardId") int cardId) {
+    public Response getAllCommentsForSpecificCard(@PathParam("cardId") Long cardId) {
         List<CommentDetailsDto> commentDetailsDtos = commentService.getAllCommentsForSpecificCard(cardId);
         return Response
                 .ok()
                 .entity(commentDetailsDtos)
+                .build();
+    }
+
+    @Path("/details/{commentId}")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getCommentDetails(@PathParam("commentId") int commentId) {
+        CommentDetailsDto commentDetailsDto = commentService.getCommentDetails(commentId);
+        return Response
+                .ok()
+                .entity(commentDetailsDto)
                 .build();
     }
 
@@ -47,6 +58,17 @@ public class CommentEndpoint {
     @Produces(MediaType.APPLICATION_JSON)
     public Response editComment(JsonObject input) {
         ResponseMessage responseMessage = commentService.editComment(new EditCommentDto(input));
+        return Response
+                .ok()
+                .entity(responseMessage.getMessage())
+                .build();
+    }
+
+    @Path("/{commentId}")
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response deleteComment(@PathParam("commentId") int commentId) {
+        ResponseMessage responseMessage = commentService.deleteComment(commentId);
         return Response
                 .ok()
                 .entity(responseMessage.getMessage())

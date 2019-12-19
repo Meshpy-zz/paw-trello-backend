@@ -7,8 +7,10 @@ import com.paw.trello.dtos.boards.EditBoardNameDto;
 import com.paw.trello.entities.Board;
 import com.paw.trello.entities.Card;
 import com.paw.trello.entities.Comment;
+import com.paw.trello.services.auth.AuthorizationService;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -23,11 +25,15 @@ public class BoardService {
     @PersistenceContext
     private EntityManager entityManager;
 
+    @Inject
+    private AuthorizationService authorizationService;
+
     public ResponseMessage createNewBoard(CreateNewBoardDto createNewBoardDto) {
         Board board = new Board();
         board.setName(createNewBoardDto.getName());
         board.setCreatorId((long) createNewBoardDto.getCreatorId());
         board.setAuditCd(new Date());
+        board.setIsArchived("N");
 
         entityManager.persist(board);
 
@@ -38,9 +44,17 @@ public class BoardService {
 
     public List<BoardDto> getAllBoards(Long userId) {
         // dodac sprawdzanie uprawnien uzytkownika (allowedUsers) do tablicy
-        List<Board> boards = entityManager.createQuery("SELECT b FROM Board b WHERE b.creatorId = :userId")
+        List<Board> ownerBoards = entityManager.createQuery("SELECT b FROM Board b WHERE b.creatorId = :userId")
                                           .setParameter("userId", userId)
                                           .getResultList();
+
+        List<Board> boardsFromAnotherUsers = entityManager.createQuery("SELECT b FROM Board b WHERE b.allowedUsers LIKE :userId")
+                .setParameter("userId", "%" + userId + "%")
+                .getResultList();
+
+        List<Board> boards = new ArrayList<>(ownerBoards);
+        boards.addAll(boardsFromAnotherUsers);
+
         return convertBoardsListToBoardsDtoList(boards);
     }
 
@@ -51,6 +65,7 @@ public class BoardService {
             BoardDto boardDto = BoardDto.builder()
                                         .boardId(board.getBoardId())
                                         .name(board.getName())
+                                        .isArchived(board.getIsArchived())
                                         .build();
             boardsDto.add(boardDto);
         }
@@ -123,4 +138,72 @@ public class BoardService {
                 .build();
     }
 
+    public ResponseMessage unarchiveCard(Long boardId) {
+        Board board = (Board) entityManager.createQuery("SELECT b FROM Board b WHERE b.boardId = :boardId")
+                                           .setParameter("boardId", boardId)
+                                           .getSingleResult();
+
+        board.setIsArchived("N");
+
+        entityManager.merge(board);
+
+        return ResponseMessage.builder()
+                              .message("Pomyślnie odarchiwizowano tablicę!")
+                              .build();
+    }
+
+    public ResponseMessage archiveCard(Long boardId) {
+        Board board = (Board) entityManager.createQuery("SELECT b FROM Board b WHERE b.boardId = :boardId")
+                                           .setParameter("boardId", boardId)
+                                           .getSingleResult();
+
+        board.setIsArchived("Y");
+
+        entityManager.merge(board);
+
+        return ResponseMessage.builder()
+                              .message("Pomyślnie zarchiwizowano tablicę!")
+                              .build();
+    }
+
+    public ResponseMessage inviteUserToBoard(int boardId, String username) {
+        Board board = (Board) entityManager.createQuery("SELECT b FROM Board b WHERE b.boardId = :boardId")
+                                           .setParameter("boardId", boardId)
+                                           .getSingleResult();
+        String allowedUsers = board.getAllowedUsers();
+        Long userId = this.authorizationService.getUserIdByUsername(username);
+
+        if (userId == null) {
+            return ResponseMessage.builder()
+                                  .message("failed")
+                                  .build();
+        }
+
+        if (userId.equals(board.getCreatorId())) {
+            return ResponseMessage.builder()
+                                  .message("same_user")
+                                  .build();
+        }
+
+        if (allowedUsers != null) {
+            if (String.valueOf(userId).contains(allowedUsers)) {
+                return ResponseMessage.builder()
+                                      .message("contains")
+                                      .build();
+            }
+        }
+
+        if (allowedUsers == null) {
+            board.setAllowedUsers(String.valueOf(userId));
+        } else {
+            board.setAllowedUsers(allowedUsers.concat("," + userId));
+        }
+
+
+        entityManager.merge(board);
+
+        return ResponseMessage.builder()
+                              .message("Pomyślnie dodano użytkownika do tablicy.")
+                              .build();
+    }
 }

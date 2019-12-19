@@ -24,6 +24,7 @@ public class CommentService {
         comment.setCardId((long) createNewCommentDto.getCardId());
         comment.setContent(createNewCommentDto.getContent());
         comment.setAuditCd(new Date());
+        comment.setCreatorId((long) createNewCommentDto.getCreatorId());
 
         entityManager.persist(comment);
 
@@ -32,7 +33,7 @@ public class CommentService {
                               .build();
     }
 
-    public List<CommentDetailsDto> getAllCommentsForSpecificCard(int cardId) {
+    public List<CommentDetailsDto> getAllCommentsForSpecificCard(Long cardId) {
         List<Comment> comments = entityManager.createQuery("SELECT c FROM Comment c WHERE c.cardId = :cardId")
                 .setParameter("cardId", cardId)
                 .getResultList();
@@ -63,6 +64,31 @@ public class CommentService {
         return ResponseMessage.builder()
                               .message("Poprawnie zedytowano komentarz!")
                               .build();
+    }
+
+    public ResponseMessage deleteComment(int commentId) {
+        Comment comment = (Comment) entityManager.createQuery("SELECT c FROM Comment c WHERE c.commentId = :commentId")
+                .setParameter("commentId", commentId)
+                .getSingleResult();
+
+        entityManager.remove(comment);
+
+        return ResponseMessage.builder()
+                .message("Pomyślnie usunięto komentarz!")
+                .build();
+    }
+
+    public CommentDetailsDto getCommentDetails(int commentId) {
+        Comment comment = (Comment) entityManager.createQuery("SELECT c FROM Comment c WHERE c.commentId = :commentId")
+                                                 .setParameter("commentId", commentId)
+                                                 .getSingleResult();
+
+        return CommentDetailsDto.builder()
+                                .cardId(comment.getCardId())
+                                .content(comment.getContent())
+                                .commentId(comment.getCommentId())
+                                .auditCd(comment.getAuditCd())
+                                .build();
     }
 
 }

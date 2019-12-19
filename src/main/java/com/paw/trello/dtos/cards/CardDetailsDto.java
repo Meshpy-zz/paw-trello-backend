@@ -13,4 +13,6 @@ public class CardDetailsDto {
 
     private String description;
 
+    private String isArchived;
+
 }

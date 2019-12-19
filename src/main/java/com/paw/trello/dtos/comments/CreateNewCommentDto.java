@@ -14,13 +14,16 @@ public class CreateNewCommentDto {
 
     private String content;
 
+    private int creatorId;
+
     public CreateNewCommentDto(JsonObject input) {
         this.cardId = input.getInt("cardId");
         this.content = input.getString("content");
+        this.creatorId = input.getInt("creatorId");
     }
 
     public JsonObject toJson() {
-        return Json.createObjectBuilder().add("cardId", this.cardId).add("content", this.content).build();
+        return Json.createObjectBuilder().add("cardId", this.cardId).add("content", this.content).add("creatorId", this.creatorId).build();
     }
 
 }

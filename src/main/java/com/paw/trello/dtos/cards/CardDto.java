@@ -15,4 +15,6 @@ public class CardDto {
 
     private String description;
 
+    private String isArchived;
+
 }

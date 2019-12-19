@@ -3,6 +3,7 @@ package com.paw.trello.services.auth;
 import com.paw.trello.dtos.LoginUserDto;
 import com.paw.trello.dtos.RegisterUserDto;
 import com.paw.trello.dtos.ResponseMessage;
+import com.paw.trello.dtos.UserSession;
 import com.paw.trello.entities.User;
 
 import javax.ejb.Stateless;
@@ -71,22 +72,46 @@ public class AuthorizationService {
         return false;
     }
 
-    public ResponseMessage loginUser(LoginUserDto loginUserDto) {
+    public UserSession loginUser(LoginUserDto loginUserDto) {
         try {
             User user = (User) entityManager
                     .createQuery("SELECT u FROM User u WHERE u.email LIKE :email AND u.password LIKE :password")
                     .setParameter("email", loginUserDto.getEmail())
-                    .setParameter("password", loginUserDto.getPassword());
+                    .setParameter("password", loginUserDto.getPassword())
+                    .getSingleResult();
+
+            return UserSession.builder()
+                              .userId(user.getUserId())
+                              .password(user.getPassword())
+                              .username(user.getUsername())
+                              .build();
         }
         catch (NoResultException e) {
-            return ResponseMessage.builder()
-                                  .message("Nie znaleziono użytkownika o nazwie: " + loginUserDto.getEmail())
-                                  .build();
+            return null;
         }
 
-        return ResponseMessage.builder()
-                              .message("Pomyślnie zalogowano użytkownika o nazwie: " + loginUserDto.getEmail())
-                              .build();
+
+    }
+
+    public String getUsername(int userId) {
+        User user = (User) entityManager.createQuery("SELECT u FROM User u WHERE u.userId = :userId")
+                .setParameter("userId", userId)
+                .getSingleResult();
+
+        return user.getUsername();
+    }
+
+    public Long getUserIdByUsername(String username) {
+        try {
+            User user = (User) entityManager.createQuery("SELECT u FROM User u WHERE u.username = :username")
+                                            .setParameter("username", username)
+                                            .getSingleResult();
+
+            return user.getUserId();
+        }
+        catch (NoResultException e) {
+            return null;
+        }
     }
 
 }

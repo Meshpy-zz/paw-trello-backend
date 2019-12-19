@@ -27,6 +27,7 @@ public class CardService {
         card.setName(createNewCardDto.getName());
         card.setAuditCd(new Date());
         card.setDescription(createNewCardDto.getDescription());
+        card.setIsArchieved("N");
 
         entityManager.persist(card);
 
@@ -52,6 +53,7 @@ public class CardService {
                                 .listId(card.getListId())
                                 .title(card.getName())
                                 .description(card.getDescription())
+                                .isArchived(card.getIsArchieved())
                                 .build());
         }
 
@@ -67,6 +69,7 @@ public class CardService {
                              .cardId(card.getCardId())
                              .description(card.getDescription())
                              .title(card.getName())
+                             .isArchived(card.getIsArchieved())
                              .build();
     }
 
@@ -102,12 +105,26 @@ public class CardService {
                                         .setParameter("cardId", cardId)
                                         .getSingleResult();
 
-        card.setArchieved(true);
+        card.setIsArchieved("Y");
         entityManager.merge(card);
 
         return ResponseMessage.builder()
                 .message("Pomyślnie zarchiwizowano kartę o nr id: " + cardId)
                 .build();
+    }
+
+    public ResponseMessage unarchiveCard(Long cardId) {
+        Card card = (Card) entityManager.createQuery("SELECT c FROM Card c WHERE c.cardId = :cardId")
+                                        .setParameter("cardId", cardId)
+                                        .getSingleResult();
+
+        card.setIsArchieved("N");
+        entityManager.merge(card);
+
+
+        return ResponseMessage.builder()
+                              .message("Pomyślnie odarchiwizowano kartę o nr id: " + cardId)
+                              .build();
     }
 
 }

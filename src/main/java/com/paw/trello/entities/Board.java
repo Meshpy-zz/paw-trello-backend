@@ -29,6 +29,9 @@ public class Board {
     @Column(name = "board_audit_md")
     private Date auditMd;
 
+    @Column(name = "board_is_archived")
+    private String isArchived;
+
     public Long getBoardId() {
         return boardId;
     }
@@ -77,8 +80,15 @@ public class Board {
         this.auditMd = auditMd;
     }
 
-    @Override
-    public String toString() {
+    public String getIsArchived() {
+        return isArchived;
+    }
+
+    public void setIsArchived(String isArchived) {
+        this.isArchived = isArchived;
+    }
+
+    @Override public String toString() {
         return "Board{"
                + "boardId="
                + boardId
@@ -94,7 +104,9 @@ public class Board {
                + auditCd
                + ", auditMd="
                + auditMd
+               + ", isArchived='"
+               + isArchived
+               + '\''
                + '}';
     }
-
 }

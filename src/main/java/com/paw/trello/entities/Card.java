@@ -40,7 +40,7 @@ public class Card {
     private Date auditMd;
 
     @Column(name = "card_is_archieved")
-    private boolean isArchieved;
+    private String isArchieved;
 
     public Long getCardId() {
         return cardId;
@@ -114,12 +114,12 @@ public class Card {
         this.auditMd = auditMd;
     }
 
-    public boolean isArchieved() {
+    public String getIsArchieved() {
         return isArchieved;
     }
 
-    public void setArchieved(boolean archieved) {
-        isArchieved = archieved;
+    public void setIsArchieved(String isArchieved) {
+        this.isArchieved = isArchieved;
     }
 
     @Override public String toString() {
@@ -146,6 +146,9 @@ public class Card {
                + auditCd
                + ", auditMd="
                + auditMd
+               + ", isArchieved='"
+               + isArchieved
+               + '\''
                + '}';
     }
 
